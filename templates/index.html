@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Command</title>
+</head>
+<body>
+    <h1>Submit Shell Command</h1>
+    <form id="commandForm">
+        <label for="command">Enter Command:</label>
+        <input type="text" id="command" name="command">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#commandForm').submit(function(event) {
+                event.preventDefault();
+                var command = $('#command').val();
+                $.post('/submit-command', { command: command }, function(data) {
+                    if (data.success) {
+                        alert('Command submitted successfully!');
+                        $('#command').val(''); // Clear the input field
+                    } else {
+                        alert('Error submitting command.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
